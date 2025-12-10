@@ -1,0 +1,323 @@
+:root {
+  /* Luxury Light Theme */
+  --bg-primary: #fdfbf7;
+  /* Cream/Off-white */
+  --bg-secondary: #f5f0e6;
+  /* Light Beige */
+  --text-primary: #4a4036;
+  /* Dark Brown */
+  --text-secondary: #8c7b6c;
+  /* Muted Brown */
+
+  --accent-wa: #c2a878;
+  /* Gold/Beige */
+  --accent-jp: #8b5e3c;
+  /* Rich Brown */
+  --accent-fusion: #a68a64;
+  /* Muted Gold */
+
+  --glass-bg: rgba(255, 255, 255, 0.7);
+  --glass-border: rgba(194, 168, 120, 0.2);
+
+  --font-main: 'Inter', system-ui, sans-serif;
+  --font-display: 'Outfit', system-ui, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-main);
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-image: url('/bg-pattern.png');
+  background-repeat: repeat;
+  background-size: 780px;
+  background-attachment: fixed;
+  /* Keep pattern static while scrolling */
+}
+
+#root {
+  width: 100%;
+  max-width: 100%;
+  /* Allow full width for grid */
+  padding: 0;
+  text-align: center;
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-display);
+  font-weight: 700;
+}
+
+.container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: 4rem;
+  width: 100%;
+  max-width: 1400px;
+  padding: 2rem 4rem;
+  margin: 0 auto;
+}
+
+.header {
+  text-align: left;
+  justify-self: start;
+  max-width: 450px;
+}
+
+.header h1 {
+  font-size: 5rem;
+  background: linear-gradient(135deg, var(--text-primary), var(--accent-jp));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  margin-bottom: 1rem;
+  letter-spacing: -0.03em;
+  line-height: 1;
+  font-weight: 800;
+}
+
+.header p {
+  color: var(--text-secondary);
+  font-size: 1.5rem;
+  font-weight: 300;
+  line-height: 1.4;
+}
+
+.project-credit {
+  font-size: 1.3rem !important;
+  /* Bigger */
+  margin-top: 4rem;
+  /* Moved down more */
+  background: linear-gradient(135deg, var(--text-primary), var(--accent-jp));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent !important;
+  /* Override default p color */
+  opacity: 0.6;
+  font-weight: 400 !important;
+}
+
+.project-credit strong {
+  font-weight: 700;
+}
+
+.card {
+  background: var(--glass-bg);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--glass-border);
+  border-radius: 24px;
+  padding: 3rem;
+  /* Restored padding */
+  width: 100%;
+  max-width: 850px;
+  box-shadow: 0 8px 32px rgba(74, 64, 54, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  justify-self: center;
+}
+
+.card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: linear-gradient(90deg, var(--accent-wa), var(--accent-jp));
+}
+
+.result-content {
+  min-height: 200px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+}
+
+.dish-title {
+  font-size: 2.5rem;
+  line-height: 1.1;
+  margin-bottom: 1rem;
+}
+
+.image-container {
+  width: 100%;
+  height: 300px;
+  border-radius: 16px;
+  /* Restored radius */
+  overflow: hidden;
+  margin-bottom: 1.5rem;
+  background-color: rgba(0, 0, 0, 0.05);
+  /* Lighter grey */
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.image-container.loading {
+  animation: pulse 1.5s infinite;
+}
+
+.card-body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.img-placeholder {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  /* Removed animation from text, now on container */
+}
+
+.dish-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  position: absolute;
+  top: 0;
+  left: 0;
+  /* Scale up slightly to crop out the watermark in the corner */
+  transform: scale(1.1);
+}
+
+.dish-image.visible {
+  opacity: 1;
+}
+
+@keyframes pulse {
+  0% {
+    opacity: 0.5;
+  }
+
+  50% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0.5;
+  }
+}
+
+.dish-desc {
+  font-size: 1.1rem;
+  color: var(--text-secondary);
+  max-width: 80%;
+  text-align: center;
+}
+
+.tags {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 1.5rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.tag {
+  padding: 0.5rem 1rem;
+  border-radius: 100px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.tag.wa {
+  background: rgba(194, 168, 120, 0.15);
+  color: var(--accent-wa);
+  border: 1px solid rgba(194, 168, 120, 0.3);
+}
+
+.tag.jp {
+  background: rgba(139, 94, 60, 0.1);
+  color: var(--accent-jp);
+  border: 1px solid rgba(139, 94, 60, 0.3);
+}
+
+.tag.style {
+  background: rgba(166, 138, 100, 0.1);
+  color: var(--accent-fusion);
+  border: 1px solid rgba(166, 138, 100, 0.3);
+}
+
+.btn-generate {
+  background: linear-gradient(135deg, var(--accent-wa), var(--accent-jp));
+  border: none;
+  border-radius: 100px;
+  padding: 1rem 3rem;
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: white;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  box-shadow: 0 4px 15px rgba(139, 94, 60, 0.2);
+  margin-top: 2rem;
+  /* Added spacing */
+  position: relative;
+  overflow: hidden;
+  justify-self: end;
+}
+
+.btn-generate:hover {
+  transform: translateY(-2px) scale(1.05);
+  box-shadow: 0 8px 25px rgba(139, 94, 60, 0.3);
+}
+
+.btn-generate:active {
+  transform: translateY(1px) scale(0.98);
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-in {
+  animation: fadeIn 0.6s ease forwards;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.loading-spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid rgba(139, 94, 60, 0.1);
+  border-radius: 50%;
+  border-top-color: var(--accent-wa);
+  animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
