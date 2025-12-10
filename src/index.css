@@ -267,7 +267,6 @@ h3 {
   cursor: pointer;
   transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   box-shadow: 0 4px 15px rgba(139, 94, 60, 0.2);
-  box-shadow: 0 4px 15px rgba(139, 94, 60, 0.2);
   margin-top: 2rem;
   position: relative;
   overflow: hidden;
@@ -351,6 +350,8 @@ h3 {
   pointer-events: none;
   /* Allow clicks to pass through transparent areas */
   z-index: 10;
+  background: transparent;
+  /* Ensure wallpaper shows through */
 }
 
 .footer p {
@@ -359,11 +360,10 @@ h3 {
 }
 
 /* Mobile / Tablet Optimization */
-@media (max-width: 900px),
-(max-height: 800px) {
+@media (max-width: 900px) {
   .app-wrapper {
     justify-content: flex-start;
-    /* Top alignment for mobile or short screens */
+    /* Top alignment for mobile */
     padding-bottom: 2rem;
   }
 
