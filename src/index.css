@@ -1,24 +1,14 @@
 :root {
   /* Luxury Light Theme */
   --bg-primary: #fdfbf7;
-  /* Cream/Off-white */
   --bg-secondary: #f5f0e6;
-  /* Light Beige */
   --text-primary: #4a4036;
-  /* Dark Brown */
   --text-secondary: #8c7b6c;
-  /* Muted Brown */
-
   --accent-wa: #c2a878;
-  /* Gold/Beige */
   --accent-jp: #8b5e3c;
-  /* Rich Brown */
   --accent-fusion: #a68a64;
-  /* Muted Gold */
-
   --glass-bg: rgba(255, 255, 255, 0.7);
   --glass-border: rgba(194, 168, 120, 0.2);
-
   --font-main: 'Inter', system-ui, sans-serif;
   --font-display: 'Outfit', system-ui, sans-serif;
 }
@@ -34,20 +24,15 @@ body {
   background-color: var(--bg-primary);
   color: var(--text-primary);
   min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   background-image: url('/bg-pattern.png');
   background-repeat: repeat;
   background-size: 780px;
   background-attachment: fixed;
-  /* Keep pattern static while scrolling */
 }
 
 #root {
   width: 100%;
   max-width: 100%;
-  /* Allow full width for grid */
   padding: 0;
   text-align: center;
 }
@@ -59,6 +44,14 @@ h3 {
   font-weight: 700;
 }
 
+/* App Wrapper to hold Container + Footer */
+.app-wrapper {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
 .container {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -67,7 +60,8 @@ h3 {
   width: 100%;
   max-width: 1400px;
   padding: 2rem 4rem;
-  margin: 0 auto;
+  margin: auto;
+  /* Centers vertically and horizontally in flex wrapper */
 }
 
 .header {
@@ -97,14 +91,11 @@ h3 {
 
 .project-credit {
   font-size: 1.3rem !important;
-  /* Bigger */
   margin-top: 4rem;
-  /* Moved down more */
   background: linear-gradient(135deg, var(--text-primary), var(--accent-jp));
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent !important;
-  /* Override default p color */
   opacity: 0.6;
   font-weight: 400 !important;
 }
@@ -119,7 +110,6 @@ h3 {
   border: 1px solid var(--glass-border);
   border-radius: 24px;
   padding: 3rem;
-  /* Restored padding */
   width: 100%;
   max-width: 850px;
   box-shadow: 0 8px 32px rgba(74, 64, 54, 0.1);
@@ -158,11 +148,9 @@ h3 {
   width: 100%;
   height: 300px;
   border-radius: 16px;
-  /* Restored radius */
   overflow: hidden;
   margin-bottom: 1.5rem;
   background-color: rgba(0, 0, 0, 0.05);
-  /* Lighter grey */
   position: relative;
   display: flex;
   justify-content: center;
@@ -183,7 +171,6 @@ h3 {
 .img-placeholder {
   color: var(--text-secondary);
   font-size: 0.9rem;
-  /* Removed animation from text, now on container */
 }
 
 .dish-image {
@@ -195,7 +182,6 @@ h3 {
   position: absolute;
   top: 0;
   left: 0;
-  /* Scale up slightly to crop out the watermark in the corner */
   transform: scale(1.1);
 }
 
@@ -271,7 +257,6 @@ h3 {
   transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   box-shadow: 0 4px 15px rgba(139, 94, 60, 0.2);
   margin-top: 2rem;
-  /* Added spacing */
   position: relative;
   overflow: hidden;
   justify-self: end;
@@ -286,7 +271,6 @@ h3 {
   transform: translateY(1px) scale(0.98);
 }
 
-/* Animations */
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -322,23 +306,15 @@ h3 {
   }
 }
 
-/* App Wrapper to hold Container + Footer */
-.app-wrapper {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
 /* Footer Styling */
 .footer {
-  margin-top: 4rem;
-  padding-bottom: 2rem;
+  padding: 2rem 0;
   color: var(--text-secondary);
   font-size: 0.9rem;
   opacity: 0.7;
   text-align: center;
   width: 100%;
+  margin-top: auto;
 }
 
 /* Mobile / Tablet Optimization */
@@ -348,6 +324,11 @@ h3 {
     gap: 3rem;
     padding: 2rem 1.5rem;
     text-align: center;
+    margin: 0 auto;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
   }
 
   .header {
@@ -359,7 +340,6 @@ h3 {
 
   .header h1 {
     font-size: 3.5rem;
-    /* Smaller title on mobile */
   }
 
   .header p {
@@ -368,7 +348,6 @@ h3 {
 
   .project-credit {
     margin-top: 2rem;
-    /* Less space on mobile */
   }
 
   .generator-wrapper {
@@ -380,14 +359,12 @@ h3 {
 
   .card {
     padding: 2rem;
-    /* Reduce padding on mobile */
   }
 
   .btn-generate {
     justify-self: center;
     width: 100%;
     max-width: 100%;
-    /* Full width button on mobile looks good */
     margin-top: 1.5rem;
   }
 
