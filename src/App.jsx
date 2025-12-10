@@ -1,17 +1,36 @@
 import { useState, useEffect } from 'react';
 import { generateCombo } from './utils/generator';
+import { generateImage } from './utils/fal';
 
 function App() {
   const [combo, setCombo] = useState(null);
   const [loading, setLoading] = useState(false);
   const [key, setKey] = useState(0); // To trigger re-animation
+  const [imageUrl, setImageUrl] = useState(''); // State for async image URL
+  const [error, setError] = useState(null);
 
-  const handleGenerate = () => {
+  const handleGenerate = async () => {
     setLoading(true);
-    // Removed artificial delay for instant text generation
-    setCombo(generateCombo());
+    setError(null);
+    setImageUrl(''); // Clear previous image
+    setImageLoaded(false);
+
+    // 1. Generate Text Combo
+    const newCombo = generateCombo();
+    setCombo(newCombo);
     setKey(prev => prev + 1);
-    setLoading(false);
+
+    // 2. Generate Image (Async)
+    try {
+      const prompt = `${newCombo.description}, delicious food, vibrant, professional photography, 8k`;
+      const url = await generateImage(prompt);
+      setImageUrl(url);
+    } catch (err) {
+      console.error("Failed to generate image:", err);
+      setError("Visual Generation Failed. Check API Key.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   // Generate one on first load
@@ -26,13 +45,7 @@ function App() {
     setImageLoaded(false);
   }, [combo]);
 
-  // Pollinations.ai URL construction
-  // We encode the description to make it URL safe. 
-  // Simplified prompt for speed.
-  // OPTIMIZATION: Reduced resolution to 384x384 and used 'seed' parameter.
-  const imageUrl = combo
-    ? `https://image.pollinations.ai/prompt/${encodeURIComponent(combo.description + ", delicious food, vibrant")}?seed=${combo.id}&model=turbo&width=384&height=384`
-    : '';
+  // Pollinations URL logic removed. We now use 'imageUrl' state.
 
   return (
     <div className="app-wrapper">
@@ -40,30 +53,34 @@ function App() {
         <header className="header">
           <div className="logo-gradient"></div>
           <p>West Africa meets Japan in a culinary experiment.</p>
-          <p className="project-credit">A <strong>Studio Aikin Karr</strong> Project</p>
+          <p className="project-credit">A <a href="https://studioaikinkarr.framer.website" target="_blank" rel="noopener noreferrer" className="credit-link"><strong>Studio Aikin Karr</strong></a> Project</p>
         </header>
 
         <div className="generator-wrapper">
           <main className="card">
             <div className="result-content">
-              {loading ? (
-                <div className="loading-spinner-container">
-                  <div className="loading-spinner"></div>
-                </div>
-              ) : combo ? (
+              {combo ? (
                 <div key={key} className="animate-in">
-                  <div className={`image-container ${!imageLoaded ? 'loading' : ''}`}>
-                    {!imageLoaded && <div className="img-placeholder">Generating Visual...</div>}
-                    <img
-                      src={imageUrl}
-                      alt={combo.title}
-                      className={`dish-image ${imageLoaded ? 'visible' : ''}`}
-                      onLoad={() => setImageLoaded(true)}
-                      onError={(e) => {
-                        console.error("Image failed to load");
-                        e.target.style.display = 'none';
-                      }}
-                    />
+                  <div className={`image-container ${loading || (!imageLoaded && imageUrl) ? 'loading' : ''}`}>
+                    {loading && <div className="img-placeholder">Generating Visual...</div>}
+                    {!loading && error && <div className="img-placeholder error" style={{ color: 'var(--accent-wa)' }}>{error}</div>}
+                    {!loading && !error && !imageUrl && <div className="img-placeholder">Prepare to Feast</div>}
+                    {!loading && imageUrl && !imageLoaded && <div className="img-placeholder">Loading Image...</div>}
+
+                    {/* Show image only if we have a URL */}
+                    {imageUrl && (
+                      <img
+                        src={imageUrl}
+                        alt={combo.title}
+                        className={`dish-image ${imageLoaded ? 'visible' : ''}`}
+                        onLoad={() => setImageLoaded(true)}
+                        onError={(e) => {
+                          console.error("Image failed to load");
+                          e.target.style.display = 'none';
+                          // Optional: setError("Image failed to load")
+                        }}
+                      />
+                    )}
                   </div>
 
                   <div className="card-body">
@@ -81,7 +98,7 @@ function App() {
             </div>
           </main>
 
-          <button className="btn-generate" onClick={handleGenerate}>
+          <button className="btn-generate" onClick={handleGenerate} disabled={loading}>
             {loading ? 'Mixing...' : 'Generate Fusion'}
           </button>
         </div>
