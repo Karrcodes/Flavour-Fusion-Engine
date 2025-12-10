@@ -35,55 +35,60 @@ function App() {
     : '';
 
   return (
-    <div className="container">
-      <header className="header">
-        <h1>Flavour Fusion</h1>
-        <p>West Africa meets Japan in a culinary experiment.</p>
-        <p className="project-credit">A <strong>Studio Aikin Karr</strong> Project</p>
-      </header>
+    <div className="app-wrapper">
+      <div className="container">
+        <header className="header">
+          <h1>Flavour Fusion</h1>
+          <p>West Africa meets Japan in a culinary experiment.</p>
+          <p className="project-credit">A <strong>Studio Aikin Karr</strong> Project</p>
+        </header>
 
-      <div className="generator-wrapper">
-        <main className="card">
-          <div className="result-content">
-            {loading ? (
-              <div className="loading-spinner-container">
-                <div className="loading-spinner"></div>
-              </div>
-            ) : combo ? (
-              <div key={key} className="animate-in">
-                <div className={`image-container ${!imageLoaded ? 'loading' : ''}`}>
-                  {!imageLoaded && <div className="img-placeholder">Generating Visual...</div>}
-                  <img
-                    src={imageUrl}
-                    alt={combo.title}
-                    className={`dish-image ${imageLoaded ? 'visible' : ''}`}
-                    onLoad={() => setImageLoaded(true)}
-                    onError={(e) => {
-                      console.error("Image failed to load");
-                      e.target.style.display = 'none';
-                    }}
-                  />
+        <div className="generator-wrapper">
+          <main className="card">
+            <div className="result-content">
+              {loading ? (
+                <div className="loading-spinner-container">
+                  <div className="loading-spinner"></div>
                 </div>
+              ) : combo ? (
+                <div key={key} className="animate-in">
+                  <div className={`image-container ${!imageLoaded ? 'loading' : ''}`}>
+                    {!imageLoaded && <div className="img-placeholder">Generating Visual...</div>}
+                    <img
+                      src={imageUrl}
+                      alt={combo.title}
+                      className={`dish-image ${imageLoaded ? 'visible' : ''}`}
+                      onLoad={() => setImageLoaded(true)}
+                      onError={(e) => {
+                        console.error("Image failed to load");
+                        e.target.style.display = 'none';
+                      }}
+                    />
+                  </div>
 
-                <div className="card-body">
-                  <h2 className="dish-title">{combo.title}</h2>
-                  <p className="dish-desc">{combo.description}</p>
+                  <div className="card-body">
+                    <h2 className="dish-title">{combo.title}</h2>
+                    <p className="dish-desc">{combo.description}</p>
 
-                  <div className="tags">
-                    <span className="tag wa">{combo.ingredients[0].name}</span>
-                    <span className="tag jp">{combo.ingredients[1].name}</span>
-                    <span className="tag style">{combo.style}</span>
+                    <div className="tags">
+                      <span className="tag wa">{combo.ingredients[0].name}</span>
+                      <span className="tag jp">{combo.ingredients[1].name}</span>
+                      <span className="tag style">{combo.style}</span>
+                    </div>
                   </div>
                 </div>
-              </div>
-            ) : null}
-          </div>
-        </main>
+              ) : null}
+            </div>
+          </main>
 
-        <button className="btn-generate" onClick={handleGenerate}>
-          {loading ? 'Mixing...' : 'Generate Fusion'}
-        </button>
+          <button className="btn-generate" onClick={handleGenerate}>
+            {loading ? 'Mixing...' : 'Generate Fusion'}
+          </button>
+        </div>
       </div>
+      <footer className="footer">
+        <p>&copy; Studio Aikin Karr 2026</p>
+      </footer>
     </div>
   );
 }
