@@ -78,7 +78,8 @@ h3 {
 
 .header h1 {
   font-size: 5rem;
-  background: linear-gradient(135deg, var(--text-primary), var(--accent-jp));
+  background: linear-gradient(120deg, var(--text-primary), var(--accent-wa), var(--accent-jp), var(--accent-fusion), var(--text-primary));
+  background-size: 300%;
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
@@ -86,6 +87,7 @@ h3 {
   letter-spacing: -0.03em;
   line-height: 1;
   font-weight: 800;
+  animation: gradient-flow 8s ease infinite;
 }
 
 .header p {
@@ -309,6 +311,20 @@ h3 {
 @keyframes spin {
   to {
     transform: rotate(360deg);
+  }
+}
+
+@keyframes gradient-flow {
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
   }
 }
 
