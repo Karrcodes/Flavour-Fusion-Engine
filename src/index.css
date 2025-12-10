@@ -267,10 +267,13 @@ h3 {
   cursor: pointer;
   transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   box-shadow: 0 4px 15px rgba(139, 94, 60, 0.2);
+  box-shadow: 0 4px 15px rgba(139, 94, 60, 0.2);
   margin-top: 2rem;
   position: relative;
   overflow: hidden;
   justify-self: end;
+  z-index: 50;
+  /* Ensure button sits on top of footer */
 }
 
 .btn-generate:hover {
@@ -333,11 +336,13 @@ h3 {
 
 /* Footer Styling */
 .footer {
-  padding: 2rem 0;
+  padding: 2rem 4rem;
+  /* Align padding with container */
   color: var(--text-secondary);
   font-size: 0.9rem;
   opacity: 0.7;
-  text-align: center;
+  text-align: left;
+  /* User requested left alignment */
   position: absolute;
   /* Remove from flow to allow true centering */
   bottom: 0;
@@ -345,6 +350,7 @@ h3 {
   width: 100%;
   pointer-events: none;
   /* Allow clicks to pass through transparent areas */
+  z-index: 10;
 }
 
 .footer p {
