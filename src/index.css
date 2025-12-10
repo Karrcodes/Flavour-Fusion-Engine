@@ -383,6 +383,10 @@ h3 {
     gap: 3rem;
     padding-top: 6rem;
     /* Ensure top padding exists */
+    padding-left: 0.75rem;
+    /* Reduced from 1.5rem to widen box */
+    padding-right: 0.75rem;
+    /* Reduced from 1.5rem to widen box */
     /* Added top padding for mobile */
     text-align: center;
     margin: 0 auto;
