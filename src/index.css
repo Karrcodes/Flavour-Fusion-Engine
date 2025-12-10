@@ -343,13 +343,22 @@ h3 {
   bottom: 0;
   left: 0;
   width: 100%;
+  pointer-events: none;
+  /* Allow clicks to pass through transparent areas */
+}
+
+.footer p {
+  pointer-events: auto;
+  /* Restore interaction for text */
 }
 
 /* Mobile / Tablet Optimization */
-@media (max-width: 900px) {
+@media (max-width: 900px),
+(max-height: 800px) {
   .app-wrapper {
     justify-content: flex-start;
-    /* Top alignment for mobile */
+    /* Top alignment for mobile or short screens */
+    padding-bottom: 2rem;
   }
 
   .footer {
@@ -359,12 +368,15 @@ h3 {
     left: auto;
     margin-top: auto;
     /* Push to bottom naturally */
+    pointer-events: auto;
+    /* Normal interaction in flow */
   }
 
   .container {
     grid-template-columns: 1fr;
     gap: 3rem;
-    padding: 6rem 1.5rem 2rem 1.5rem;
+    padding-top: 6rem;
+    /* Ensure top padding exists */
     /* Added top padding for mobile */
     text-align: center;
     margin: 0 auto;
