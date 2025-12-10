@@ -28,10 +28,10 @@ function App() {
       setImageUrl(url);
     } catch (err) {
       console.error("Failed to generate image with Fal.ai:", err);
-      // Fallback to Pollinations.ai since Fal.ai quota likely exceeded
+      // Fallback to Pollinations.ai (using fast 'flux' model)
       const seed = Math.floor(Math.random() * 1000000);
       const encodedPrompt = encodeURIComponent(prompt);
-      const fallbackUrl = `https://pollinations.ai/p/${encodedPrompt}?width=1024&height=1024&seed=${seed}&nologo=true`;
+      const fallbackUrl = `https://pollinations.ai/p/${encodedPrompt}?width=1024&height=1024&seed=${seed}&nologo=true&model=flux`;
       setImageUrl(fallbackUrl);
     } finally {
       setLoading(false);
