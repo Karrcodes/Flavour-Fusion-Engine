@@ -391,6 +391,8 @@ h3 {
     -webkit-mask-position: center;
     mask-position: center;
     margin: 0 auto 1.5rem auto;
+    max-width: 225px;
+    height: 68px;
   }
 
   .footer {
