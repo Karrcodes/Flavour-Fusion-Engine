@@ -15,10 +15,23 @@ export function generateCombo() {
 
     const style = getRandom(cookingStyles);
 
+    // Calculate Nutrition (Sum of component parts)
+    const ingredientsList = [waBase, jpBase, extra];
+    const totalNutrition = ingredientsList.reduce((acc, curr) => {
+        const nut = curr.nutrition || { calories: 0, protein: 0, carbs: 0, fat: 0 };
+        return {
+            calories: acc.calories + nut.calories,
+            protein: acc.protein + nut.protein,
+            carbs: acc.carbs + nut.carbs,
+            fat: acc.fat + nut.fat
+        };
+    }, { calories: 0, protein: 0, carbs: 0, fat: 0 });
+
     return {
         title: `${waBase.name} & ${jpBase.name}`,
         description: `${style} ${waBase.name} infused with ${jpBase.name} notes, finished with ${extra.name}.`,
-        ingredients: [waBase, jpBase, extra],
+        ingredients: ingredientsList,
+        nutrition: totalNutrition,
         style: style,
         id: Date.now()
     };

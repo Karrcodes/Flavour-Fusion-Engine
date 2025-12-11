@@ -8,6 +8,7 @@ function App() {
   const [key, setKey] = useState(0); // To trigger re-animation
   const [imageUrl, setImageUrl] = useState(''); // State for async image URL
   const [error, setError] = useState(null);
+  const [imageLoaded, setImageLoaded] = useState(false);
 
   const handleGenerate = async () => {
     setLoading(true);
@@ -38,19 +39,10 @@ function App() {
     }
   };
 
-  // Generate one on first load
-  useEffect(() => {
-    handleGenerate();
-  }, []);
-
-  const [imageLoaded, setImageLoaded] = useState(false);
-
   // Reset image loaded state when combo changes
   useEffect(() => {
     setImageLoaded(false);
   }, [combo]);
-
-  // Pollinations URL logic removed. We now use 'imageUrl' state.
 
   return (
     <div className="app-wrapper">
@@ -100,9 +92,39 @@ function App() {
                       <span className="tag jp">{combo.ingredients[1].name}</span>
                       <span className="tag style">{combo.style}</span>
                     </div>
+
+                    {combo.nutrition && (
+                      <div className="nutrition-facts">
+                        <h3>Estimated Nutrition</h3>
+                        <div className="nutrition-grid">
+                          <div className="nut-item">
+                            <span className="nut-value">{combo.nutrition.calories}</span>
+                            <span className="nut-label">Calories</span>
+                          </div>
+                          <div className="nut-item">
+                            <span className="nut-value">{combo.nutrition.protein}g</span>
+                            <span className="nut-label">Protein</span>
+                          </div>
+                          <div className="nut-item">
+                            <span className="nut-value">{combo.nutrition.carbs}g</span>
+                            <span className="nut-label">Carbs</span>
+                          </div>
+                          <div className="nut-item">
+                            <span className="nut-value">{combo.nutrition.fat}g</span>
+                            <span className="nut-label">Fat</span>
+                          </div>
+                        </div>
+                      </div>
+                    )}
                   </div>
                 </div>
-              ) : null}
+              ) : (
+                <div className="initial-state-card">
+                  <div className="blur-overlay"></div>
+                  <h3>Ready to Fuse?</h3>
+                  <p>Click below to generate your first culinary experiment.</p>
+                </div>
+              )}
             </div>
           </main>
 
@@ -114,7 +136,7 @@ function App() {
       <footer className="footer">
         <p>&copy; Studio Aikin Karr 2026</p>
       </footer>
-    </div>
+    </div >
   );
 }
 
