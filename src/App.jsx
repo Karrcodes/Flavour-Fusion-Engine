@@ -11,6 +11,7 @@ function App() {
   const [imageLoaded, setImageLoaded] = useState(false);
   const [progress, setProgress] = useState(0);
   const [loadingPhase, setLoadingPhase] = useState('idle'); // 'idle', 'analyzing', 'mixing', 'plating'
+  const [genMode, setGenMode] = useState('dish'); // 'dish' or 'fast-food'
 
   const handleGenerate = async () => {
     setLoading(true);
@@ -21,12 +22,12 @@ function App() {
     setImageLoaded(false);
 
     // 1. Generate Text Combo
-    const newCombo = generateCombo();
+    const newCombo = generateCombo(genMode);
     setCombo(newCombo);
     setKey(prev => prev + 1);
 
     // 2. Start Image Gen (Background)
-    const prompt = `${newCombo.description}, delicious food, vibrant, professional photography, 8k`;
+    const prompt = `${newCombo.description}, presented on a clean table with parametric design elements, architectural food photography, studio lighting, hyper-realistic, 8k, Studio Aikin Karr brand style`;
     const imagePromise = generateImage(prompt);
 
     try {
@@ -111,6 +112,21 @@ function App() {
         </header>
 
         <div className="generator-wrapper">
+          <div className={`mode-selector ${genMode}`}>
+            <div className="active-indicator" />
+            <button
+              className={`mode-btn ${genMode === 'dish' ? 'active' : ''}`}
+              onClick={() => setGenMode('dish')}
+            >
+              <span className="label-text">Fine Dining</span> <span>🍽️</span>
+            </button>
+            <button
+              className={`mode-btn ${genMode === 'fast-food' ? 'active' : ''}`}
+              onClick={() => setGenMode('fast-food')}
+            >
+              <span className="label-text">Fast Food</span> <span>🍔</span>
+            </button>
+          </div>
           <main className="card">
             <div className="result-content">
               {combo ? (

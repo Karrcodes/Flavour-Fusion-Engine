@@ -37,3 +37,17 @@ export const cookingStyles = [
   "Raw/Cured",
   "Fermented"
 ];
+
+export const fastFoodStyles = [
+  "Burger",
+  "Pizza",
+  "Taco",
+  "Burrito",
+  "Bento Box",
+  "Instant Noodle Cup",
+  "Sandwich",
+  "Wrap",
+  "Donut",
+  "Hot Dog",
+  "Fried Chicken Bucket"
+];
